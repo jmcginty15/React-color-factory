@@ -1,23 +1,37 @@
-import logo from './logo.svg';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
+import ColorList from './ColorList';
+import NewColor from './NewColor';
+import Color from './Color';
+import useLocalStorage from './hooks';
 
 function App() {
+  const [colors, setColors, clearColors] = useLocalStorage('colors', localStorage.getItem('colors'));
+
+  function submitColor(color) {
+    const newColors = [
+      color,
+      ...colors
+    ];
+    setColors(newColors);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/colors/new">
+            <NewColor submitColor={submitColor} />
+          </Route>
+          <Route exact path="/colors/:color">
+            <Color />
+          </Route>
+          <Route exact path="/colors">
+            <ColorList colors={colors} clear={clearColors} />
+          </Route>
+          <Redirect to="/colors" />
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }

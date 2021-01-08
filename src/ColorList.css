@@ -1,0 +1,23 @@
+.ColorList-header {
+    height: 25vh;
+    width: 100vw;
+    overflow: hidden;
+    background-color: black;
+    color: white;
+}
+
+a {
+    color: white;
+}
+
+a.ColorList-list {
+    color: black;
+}
+
+p.ColorList-item {
+    margin: 0px;
+}
+
+#clear-button {
+    margin-top: 20px;
+}
